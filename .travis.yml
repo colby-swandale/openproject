@@ -100,7 +100,12 @@ before_install:
   # work around https://github.com/travis-ci/travis-ci/issues/8969
   - travis_retry gem update --system
   # Don't install 1.16.3
-  - gem install bundler -v 1.16.2
+  - travis_retry git clone https://github.com/bundler/bundler
+  - cd bundler
+  - git checkout colby/test-6689
+  - gem build bundler.gemspec
+  - gem install bundler-1.16.5.gem
+  - cd ..
 
 
 bundler_args: --binstubs --without development production docker
